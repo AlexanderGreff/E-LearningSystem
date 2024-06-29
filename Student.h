@@ -40,7 +40,7 @@ struct Student {
 		auto pred = [name](std::shared_ptr<Course> course) {
 			return course->name == name;
 		};
-		auto it = std::find_if(courses.begin(), courses.end(), pred);
+		auto it = std::ranges::find_if(courses.begin(), courses.end(), pred);
 		courses.erase(it);
 	}
 	//---------------------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 #include "Database.hpp"
     
     
-    Doctor::Doctor(string n, string u) 
+    Doctor::Doctor(std::string n, std::string u) 
     {
 		name = n; 
         username = u;

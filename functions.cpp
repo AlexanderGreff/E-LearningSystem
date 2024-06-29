@@ -1,5 +1,7 @@
 
 #include "functions.h"
+#include <chrono>
+#include <thread>
 //============================= FUNCTIONS DEFINITION ===========================================
 
 
@@ -8,15 +10,15 @@ int status = -1;
 int soz = 0;
 
 
-vector <string> doctors = {
+std::vector <std::string> doctors = {
 	"Mohamed", "m", "Ahmed","ok"
 };
 
-vector <string> students = {
+std::vector <std::string> students = {
 	"Mido", "m", "Ahmedo","ok"
 };
 
-vector <string> studentsID = {
+std::vector <std::string> studentsID = {
 	"A19EC4015", "A19EC4003"
 };
 
@@ -40,24 +42,24 @@ void mainMenu() {
 
 	clearScreen();
 
-	cout << "Main Screen" << endl; L();
-	cout << "1- Login" << endl;
+	std::cout << "Main Screen" << std::endl; L();
+	std::cout << "1- Login" << std::endl;
 	delay(400);
-	cout << "2- Signup" << endl;
+	std::cout << "2- Signup" << std::endl;
 	delay(400);
-	cout << "3- Exit\n";
+	std::cout << "3- Exit\n";
 	delay(400);
 	L();
 
-	cout << "Your choice: ";
-	cin >> choice;
-	cin.ignore(1000, '\n');
+	std::cout << "Your choice: ";
+	std::cin >> choice;
+	std::cin.ignore(1000, '\n');
 
 	//Input validation
 
 	if (choice == '3') {
 		clearScreen();
-		cout << "Thanks for yousing our program" << endl;
+		std::cout << "Thanks for yousing our program" << std::endl;
 		delay(1500);
 
 		return;
@@ -65,7 +67,7 @@ void mainMenu() {
 	switch (choice) {
 	case '1': {
 		if (wait < 4) {
-			cout << "You have attempted too many logins, please wait for a while" << endl;
+			std::cout << "You have attempted too many logins, please wait for a while" << std::endl;
 
 			wait++;
 			delay(1000);
@@ -79,18 +81,18 @@ void mainMenu() {
 	}
 }
 
-void login(vector<string>& s, vector<string>& d, int trials, string message) {
+void login(std::vector<std::string>& s, std::vector<std::string>& d, int trials, std::string message) {
 
 	clearScreen();
-	cout << "Login" << endl; L();
+	std::cout << "Login" << std::endl; L();
 
-	cout << message;
+	std::cout << message;
 
 	unbufInput((status == 3 || status == 1 || status == -2));
 
 
 	if (trials == 0) {
-		cout << "Too many login attempts, try again later!";
+		std::cout << "Too many login attempts, try again later!";
 
 		wait = 0;
 		delay(1000);
@@ -99,14 +101,14 @@ void login(vector<string>& s, vector<string>& d, int trials, string message) {
 		return;
 	}
 
-	string username;
-	string password;
-	cout << "username: ";
+	std::string username;
+	std::string password;
+	std::cout << "username: ";
 
-	getline(cin, username);
-	cout << "\npassword: ";
+	getline(std::cin, username);
+	std::cout << "\npassword: ";
 
-	getline(cin, password);
+	getline(std::cin, password);
 
 	// this variable will be 1 if user not found in students
 	// if it's also not found in doctors, it will be 3
@@ -116,7 +118,7 @@ void login(vector<string>& s, vector<string>& d, int trials, string message) {
 	// if user found in doctors not students, and correct password = 2
 	// if user found in doctors with incorrect passwords , =1;
 
-	vector<string>::const_iterator st = find(s.begin(), s.end(), username);
+	std::vector<std::string>::const_iterator st = find(s.begin(), s.end(), username);
 	if (st != s.end()) {
 		if (*++st == password) status = 0;
 		else status = -2;
@@ -125,7 +127,7 @@ void login(vector<string>& s, vector<string>& d, int trials, string message) {
 
 
 	if (status == 1) {
-		vector<string>::const_iterator dr = find(d.begin(), d.end(), username);
+		std::vector<std::string>::const_iterator dr = find(d.begin(), d.end(), username);
 		if (dr != d.end()) {
 			if (*++dr == password) status = 2;
 			else status = 1;
@@ -139,18 +141,18 @@ void login(vector<string>& s, vector<string>& d, int trials, string message) {
 	case 1: login(s, d, trials - 1, "Wrong Password, press any key to try again or presss b to go back: "); break;
 	case 2: {
 		L();
-		string welcome = "Welcome Dr. ";
+		std::string welcome = "Welcome Dr. ";
 
 		for (auto& x : DOCTORS) {
 			if (username == x->username) {
 				for (auto v : welcome) {
-					cout << v; delay(100);
+					std::cout << v; delay(100);
 				}
 				for (int b = 0; b < x->name.size(); b++) {
-					cout << x->name[b];
+					std::cout << x->name[b];
 					delay(0);
 				}
-				cout << "!";
+				std::cout << "!";
 				delay(2000);
 				doctorMenu(x);
 				break;
@@ -160,17 +162,17 @@ void login(vector<string>& s, vector<string>& d, int trials, string message) {
 	}
 	case 0: {
 		L();
-		string welcome = "Welcome ";
+		std::string welcome = "Welcome ";
 		for (auto& x : STUDENTS) {
 			if (username == x->username) {
 				for (auto v : welcome) {
-					cout << v; delay(100);
+					std::cout << v; delay(100);
 				}
 				for (int b = 0; b < x->name.size(); b++) {
-					cout << x->name[b];
+					std::cout << x->name[b];
 					delay(100);
 				}
-				cout << "!";
+				std::cout << "!";
 				delay(2000);
 				studentMenu(x);
 			}
@@ -184,30 +186,30 @@ void login(vector<string>& s, vector<string>& d, int trials, string message) {
 void signUp() {
 	clearScreen();
 
-	cout << "Signup" << endl; L();
+	std::cout << "Signup" << std::endl; L();
 
 
-	cout << "Choose the account type or press b to go back: " << endl << endl;
-	cout << left << setw(35) << "1- Doctor Account"
-		<< "2- Student Account" << endl;
+	std::cout << "Choose the account type or press b to go back: " << std::endl << std::endl;
+	std::cout << std::left << std::setw(35) << "1- Doctor Account"
+		<< "2- Student Account" << std::endl;
 	L();
-	cout << "Your choice: ";
+	std::cout << "Your choice: ";
 	char stroke = _getch();
 	if (stroke == 'b' or stroke == 'B') mainMenu();
 
 	if (stroke == '1') {
 		clearScreen();
-		cout << "Sign up for a doctor account" << endl;
+		std::cout << "Sign up for a doctor account" << std::endl;
 		L();
-		string name, username, password;
-		cout << "Name: "; getline(cin, name);
-		cout << "\nUsername: "; getline(cin, username);
-		cout << "\nPassword: "; getline(cin, password);
+		std::string name, username, password;
+		std::cout << "Name: "; getline(std::cin, name);
+		std::cout << "\nUsername: "; getline(std::cin, username);
+		std::cout << "\nPassword: "; getline(std::cin, password);
 
 		auto us = find(doctors.begin(), doctors.end(), username);
 		while (us != doctors.end()) {
 			L();
-			cout << "An account with this username already exists!" << endl
+			std::cout << "An account with this username already exists!" << std::endl
 				<< "Press 'l' to login instead or press 'b' to go back: ";
 			char stroke2 = _getch();
 			if (stroke2 == 'b' or stroke2 == 'B') mainMenu();
@@ -217,9 +219,9 @@ void signUp() {
 		doctors.push_back(username);
 		doctors.push_back(password);
 
-		DOCTORS.emplace_back(make_shared<Doctor> (Doctor(name, username)));
+		DOCTORS.emplace_back(std::make_shared<Doctor> (Doctor(name, username)));
 		L();
-		cout << "Account successfully created!" << endl;
+		std::cout << "Account successfully created!" << std::endl;
 		delay(2000);
 		mainMenu();
 
@@ -227,23 +229,23 @@ void signUp() {
 
 	else if (stroke == '2') {
 		clearScreen();
-		cout << "Sign up for a student account" << endl;
+		std::cout << "Sign up for a student account" << std::endl;
 		L();
 
-		string name, ID, username, password;
+		std::string name, ID, username, password;
 		int semester;
 
-		cout << "Name: "; getline(cin, name);
-		cout << "Student ID: "; getline(cin, ID);
-		cout << "\nOngoing semester: "; cin >> semester; cin.ignore();
+		std::cout << "Name: "; getline(std::cin, name);
+		std::cout << "Student ID: "; getline(std::cin, ID);
+		std::cout << "\nOngoing semester: "; std::cin >> semester; std::cin.ignore();
 
-		cout << "\nUsername: "; getline(cin, username);
-		cout << "\nPassword: "; getline(cin, password);
+		std::cout << "\nUsername: "; getline(std::cin, username);
+		std::cout << "\nPassword: "; getline(std::cin, password);
 
 		auto us = find(students.begin(), students.end(), username);
-		while (us != students.end() and (abs(us - students.begin()) % 2 == 0)) {
+		while (us != students.end() and (std::abs(us - students.begin()) % 2 == 0)) {
 			L();
-			cout << "An account with this username already exists!" << endl
+			std::cout << "An account with this username already exists!" << std::endl
 				<< "Press 'l' to login instead or press 'b' to go back: ";
 			char stroke2 = _getch();
 			if (stroke2 == 'b' or stroke2 == 'B') mainMenu();
@@ -253,7 +255,7 @@ void signUp() {
 		auto id = find(studentsID.begin(), studentsID.end(), ID);
 		while (id != studentsID.end()) {
 			L();
-			cout << "An account with this ID already exists!" << endl
+			std::cout << "An account with this ID already exists!" << std::endl
 				<< "Press 'l' to login instead or press 'b' to go back: ";
 			char stroke2 = _getch();
 			if (stroke2 == 'b' or stroke2 == 'B') mainMenu();
@@ -264,10 +266,10 @@ void signUp() {
 		students.push_back(password);
 		studentsID.push_back(ID);
 
-		STUDENTS.emplace_back(make_shared<Student> (Student(name, ID, username, semester)));
+		STUDENTS.emplace_back(std::make_shared<Student> (Student(name, ID, username, semester)));
 		loadC(STUDENTS.back());
 		L();
-		cout << "Account successfully created!" << endl;
+		std::cout << "Account successfully created!" << std::endl;
 		delay(2000);
 		mainMenu();
 
@@ -276,7 +278,7 @@ void signUp() {
 
 void delay(int s) {
 	//sleep_until(system_clock::now() + seconds(s));
-	sleep_for(std::chrono::milliseconds(s));
+	std::this_thread::sleep_for(std::chrono::milliseconds(s));
 }
 
 void unbufInput(bool condition, char choice) {
@@ -292,9 +294,9 @@ void L(int t) {
 
 
 	for (int i = 110; i != 0; i--) {
-		cout << "-"; delay(t);
+		std::cout << "-"; delay(t);
 	}
-	cout << endl;
+	std::cout << std::endl;
 
 
 
@@ -302,63 +304,63 @@ void L(int t) {
 
 //sf
 
-void studentMenu(shared_ptr<Student>&s) {
+void studentMenu(std::shared_ptr<Student>&s) {
 	clearScreen();
 
-	cout << "Press a key corresponding to your choice: " << endl;
+	std::cout << "Press a key corresponding to your choice: " << std::endl;
 	L();
 
-	cout << "1- Courses list" << endl;
+	std::cout << "1- Courses list" << std::endl;
 	delay(400);
-	cout << "2- Register a course" << endl;
+	std::cout << "2- Register a course" << std::endl;
 	delay(400);
-	cout << "3- Grade list" << endl;
+	std::cout << "3- Grade list" << std::endl;
 	delay(400);
-	cout << "4- Log out" << endl;
+	std::cout << "4- Log out" << std::endl;
 	delay(400);
 
 	L();
-	cout << "Your choice: ";
+	std::cout << "Your choice: ";
 
 	char stroke = _getch();
 	switch (stroke) {
 	case '1': coursesList(s);				break;
 	case '2': registerCourse(s);		    break;
 	case '3':  gradeList(s); studentMenu(s);break;
-	case '4': cin.ignore(); mainMenu();	    break;
+	case '4': std::cin.ignore(); mainMenu();	    break;
 	}
 }
 
-void coursesList(shared_ptr<Student>&S) {
+void coursesList(std::shared_ptr<Student>&S) {
 	clearScreen();
 	char stroke;
 
 
 
 
-	cout << "List of courses: " << endl; L(0);
+	std::cout << "List of courses: " << std::endl; L(0);
 
 
-	cout << left
-		<< setw(35)
+	std::cout << std::left
+		<< std::setw(35)
 		<< "Course Name"
-		<< setw(15) << "Course Code"
-		<< setw(25) << "Course Doctor"
-		<< setw(10) << "Number of Assignments";
-	cout << endl << endl;
+		<< std::setw(15) << "Course Code"
+		<< std::setw(25) << "Course Doctor"
+		<< std::setw(10) << "Number of Assignments";
+	std::cout << std::endl << std::endl;
 
 	int j = 0;
 
 
 	for (auto& x : S->courses) {
-		cout << left
-			<< ++j << "- " << setw(32) <<
-			x->name << setw(15) << x->code << setw(25)
-			<< x->Dr << "\t\t" << setw(10) << x->assignments.size() << endl;
+		std::cout << std::left
+			<< ++j << "- " << std::setw(32) <<
+			x->name << std::setw(15) << x->code << std::setw(25)
+			<< x->Dr << "\t\t" << std::setw(10) << x->assignments.size() << std::endl;
 	}
 
 	L();
-	cout << "Select the number of the course you want to view or press 'b' to go back: ";
+	std::cout << "Select the number of the course you want to view or press 'b' to go back: ";
 	stroke = _getch();
 
 
@@ -373,9 +375,9 @@ void coursesList(shared_ptr<Student>&S) {
 	}
 }
 
-void registerCourse(shared_ptr<Student>&s) {
+void registerCourse(std::shared_ptr<Student>&s) {
 
-	deque <shared_ptr <Course> > difference;
+	std::deque <std::shared_ptr <Course> > difference;
 	bool flag = true;
 
 	for (auto& x : COURSES) {
@@ -393,49 +395,49 @@ void registerCourse(shared_ptr<Student>&s) {
 	clearScreen();
 
 	if (difference.size() == 0) {
-		cout << "There are no courses for you to register in at the moment." << endl;
+		std::cout << "There are no courses for you to register in at the moment." << std::endl;
 		delay(3000);
 		studentMenu(s);
 	}
 
 
-	cout << "Lists of courses you are not registered in: " << endl;
+	std::cout << "Lists of courses you are not registered in: " << std::endl;
 	L();
-	cout << left
-		<< setw(35)
+	std::cout << std::left
+		<< std::setw(35)
 		<< "Course Name"
-		<< setw(15) << "Course Code"
-		<< setw(20) << "Course Doctor"
-		<< setw(20) << "Default Semester"
+		<< std::setw(15) << "Course Code"
+		<< std::setw(20) << "Course Doctor"
+		<< std::setw(20) << "Default Semester"
 		<< "Prerequisites";
-	cout << endl << endl;
+	std::cout << std::endl << std::endl;
 	for (int i = 0; i < difference.size(); i++) {
 
 
-		cout << left
-			<< i + 1 << "- " << setw(32)
+		std::cout << std::left
+			<< i + 1 << "- " << std::setw(32)
 			<< difference[i]->name
-			<< setw(15) << difference[i]->code
-			<< setw(20) << difference[i]->Dr
-			<< setw(20) << difference[i]->semester;
-		if (difference[i]->pre.size() == 0) cout << "No prerequisites." << endl;
+			<< std::setw(15) << difference[i]->code
+			<< std::setw(20) << difference[i]->Dr
+			<< std::setw(20) << difference[i]->semester;
+		if (difference[i]->pre.size() == 0) std::cout << "No prerequisites." << std::endl;
 		else {
 			for (auto& x : difference[i]->pre) {
-				cout << x->name << ", ";
+				std::cout << x->name << ", ";
 			}
-			cout << endl;
+			std::cout << std::endl;
 		}
 	}
 
-	cout << "\nChoose a course or press 'b' to go back: ";
+	std::cout << "\nChoose a course or press 'b' to go back: ";
 
 	char choice;
-	cin >> choice;
+	std::cin >> choice;
 
-	if (choice == 'b' or choice == 'B') { cin.ignore(); studentMenu(s); }
+	if (choice == 'b' or choice == 'B') { std::cin.ignore(); studentMenu(s); }
 
 	choice = choice - 49;
-	cin.ignore();
+	std::cin.ignore();
 
 	//=========================================================================================================================
 	bool felog2 = true;
@@ -453,12 +455,12 @@ void registerCourse(shared_ptr<Student>&s) {
 		s->courses.emplace_back(difference[choice]);
 
 
-		cout << "Added!";
+		std::cout << "Added!";
 		delay(2000);
 		studentMenu(s);
 
 	}
-	else cout << "You do not have all the prerequisites for this course!" << endl;
+	else std::cout << "You do not have all the prerequisites for this course!" << std::endl;
 	delay(2000);
 	registerCourse(s);
 
@@ -470,18 +472,18 @@ void registerCourse(shared_ptr<Student>&s) {
 
 }
 
-void stViewCourse(shared_ptr<Course>& c, shared_ptr<Student>&S) {
+void stViewCourse(std::shared_ptr<Course>& c, std::shared_ptr<Student>&S) {
 
 	clearScreen();
-	cout << "Course Info" << endl;
+	std::cout << "Course Info" << std::endl;
 	L();
 
 	c->stSummary();
 	L();
 	listAss(S, c);
 
-	if (c->assignments.size() != 0) cout << "Select an assignment to view or ";
-	cout << "press 'b' to go back: ";
+	if (c->assignments.size() != 0) std::cout << "Select an assignment to view or ";
+	std::cout << "press 'b' to go back: ";
 
 	char stroke;
 	stroke = _getch();
@@ -497,7 +499,7 @@ void stViewCourse(shared_ptr<Course>& c, shared_ptr<Student>&S) {
 	}
 }
 
-void autoAdd(shared_ptr<Course>& C) {
+void autoAdd(std::shared_ptr<Course>& C) {
 	for (auto& x : STUDENTS) {
 		if (x->semester == C->semester) {
 			x->courses.emplace_back(C);
@@ -506,7 +508,7 @@ void autoAdd(shared_ptr<Course>& C) {
 	}
 }
 
-void notAutoAdd(shared_ptr<Course>& C) {
+void notAutoAdd(std::shared_ptr<Course>& C) {
 	bool flag = false, flag3 = true;
 	for (auto& x : STUDENTS) {
 		if (x->semester != C->semester) continue;
@@ -525,15 +527,15 @@ void notAutoAdd(shared_ptr<Course>& C) {
 }
 //df
 
-void doctorMenu(shared_ptr<Doctor>& d) {
+void doctorMenu(std::shared_ptr<Doctor>& d) {
 
 
 	clearScreen();
-	cout << "Press a key corresponding to your choice: " << endl;
+	std::cout << "Press a key corresponding to your choice: " << std::endl;
 	L();
-	cout << "1- Courses list" << endl
-		<< "2- Create a course" << endl
-		<< "3- Log out" << endl
+	std::cout << "1- Courses list" << std::endl
+		<< "2- Create a course" << std::endl
+		<< "3- Log out" << std::endl
 		<< "Your choice: ";
 
 	char stroke = _getch();
@@ -544,26 +546,26 @@ void doctorMenu(shared_ptr<Doctor>& d) {
 	}
 }
 
-void coursesList(shared_ptr<Doctor>& D) {
+void coursesList(std::shared_ptr<Doctor>& D) {
 
 	clearScreen();
 
 	char stroke;
 
-	cout << "List of courses: " << endl;
+	std::cout << "List of courses: " << std::endl;
 	L();
 
-	cout << left << setw(24) << "Course Name" << setw(18) << "Course Code"
-		<< setw(22) << "Number of students" << "Number of assignments" << endl << endl;
+	std::cout << std::left << std::setw(24) << "Course Name" << std::setw(18) << "Course Code"
+		<< std::setw(22) << "Number of students" << "Number of assignments" << std::endl << std::endl;
 
 	for (int i = 0; i < D->courses.size(); i++) {
-		cout << i + 1 << "- " << left << setw(21) << D->courses.at(i)->name
-			<< setw(18) << D->courses.at(i)->code << setw(25)
-			<< D->courses.at(i)->studentCnt.size() << D->courses.at(i)->assignments.size() << endl;
+		std::cout << i + 1 << "- " << std::left << std::setw(21) << D->courses.at(i)->name
+			<< std::setw(18) << D->courses.at(i)->code << std::setw(25)
+			<< D->courses.at(i)->studentCnt.size() << D->courses.at(i)->assignments.size() << std::endl;
 	}
 
 	L();
-	cout << "Select the number of the course you want to view or press 'b' to go back: ";
+	std::cout << "Select the number of the course you want to view or press 'b' to go back: ";
 	stroke = _getch();
 	if (stroke == 'b' || stroke == 'B') doctorMenu(D);
 	else	drViewCourse(D->courses[(stroke)-49], D);
@@ -574,30 +576,30 @@ void coursesList(shared_ptr<Doctor>& D) {
 
 
 
-void drViewCourse(shared_ptr<Course>& c, shared_ptr<Doctor>& D) {
+void drViewCourse(std::shared_ptr<Course>& c, std::shared_ptr<Doctor>& D) {
 
 	clearScreen();
-	cout << c->name << " -> Course Info" << endl;
+	std::cout << c->name << " -> Course Info" << std::endl;
 	L();
 
 	c->drSummary();
 
 	L();
-	cout << "Press a key corresponding to your choice or b to go back: " << endl << endl
+	std::cout << "Press a key corresponding to your choice or b to go back: " << std::endl << std::endl
 		<< "1- Assignments list \n"
 		<< "2- Create a new assignment \n"
 		<< "3- View Students grades for this course \n"
-		<< endl << "Your choice: ";
+		<< std::endl << "Your choice: ";
 
 
 	char stroke = _getch();
 
 	if (stroke == 'D' or stroke == 'd') {
 		//clearScreen();
-		cout << endl;
+		std::cout << std::endl;
 
 		clearScreen();
-		cout << "Please enter the course description for " << c->name << ": \n";
+		std::cout << "Please enter the course description for " << c->name << ": \n";
 		L();
 		c->setDesc();
 		drViewCourse(c, D);
@@ -627,25 +629,25 @@ void drViewCourse(shared_ptr<Course>& c, shared_ptr<Doctor>& D) {
 
 }
 
-void create(shared_ptr<Doctor>& d) {
+void create(std::shared_ptr<Doctor>& d) {
 	clearScreen();
-	string n, c; int sem;
+	std::string n, c; int sem;
 	int isPre = 0;
-	cout << "Create a course" << endl;
+	std::cout << "Create a course" << std::endl;
 	L();
-	cout << "Enter details: " << endl << endl;
+	std::cout << "Enter details: " << std::endl << std::endl;
 
-	cout << "Course name: "; getline(cin, n);
-	cout << "Course code: "; getline(cin, c);
-	cout << "Default semester: "; cin >> sem; cin.ignore();
+	std::cout << "Course name: "; getline(std::cin, n);
+	std::cout << "Course code: "; getline(std::cin, c);
+	std::cout << "Default semester: "; std::cin >> sem; std::cin.ignore();
 	int stat;
 
-	cout << "\nPrerequisites?: \n"
-		<< left << setw(35) << "1-No prerequisites"
+	std::cout << "\nPrerequisites?: \n"
+		<< std::left << std::setw(35) << "1-No prerequisites"
 		<< "2-Add prerequisites\n"
-		<< "choice: "; cin >> stat; cin.ignore();
+		<< "choice: "; std::cin >> stat; std::cin.ignore();
 
-	COURSES.emplace_back(make_shared<Course> (Course(n, c, d->name, sem)));
+	COURSES.emplace_back(std::make_shared<Course> (Course(n, c, d->name, sem)));
 
 	if (stat == 1) {
 
@@ -660,61 +662,61 @@ void create(shared_ptr<Doctor>& d) {
 	}
 
 	L();
-	cout << "Course created successfully!" << endl;
+	std::cout << "Course created successfully!" << std::endl;
 	delay(2000);
 	coursesList(d);
 
 }
 
-void addAssignmentToCourse(shared_ptr<Doctor>& d, shared_ptr<Course>& c) {
+void addAssignmentToCourse(std::shared_ptr<Doctor>& d, std::shared_ptr<Course>& c) {
 
-	string nama;  double fM; string dL;  deque <string> ds;
-	cout << "Enter the details for the assignment: " << endl << endl;
+	std::string nama;  double fM; std::string dL;  std::deque <std::string> ds;
+	std::cout << "Enter the details for the assignment: " << std::endl << std::endl;
 
-	cout << "Assignment name: ";
-	getline(cin, nama);
-	cout << "Assignment description: \n";
-	string temp;
-	while (getline(cin, temp) and temp != "") {
+	std::cout << "Assignment name: ";
+	getline(std::cin, nama);
+	std::cout << "Assignment description: \n";
+	std::string temp;
+	while (getline(std::cin, temp) and temp != "") {
 		ds.push_back(temp);
 	}
-	cout << "Assignment full mark: "; cin >> fM; cin.ignore();
-	cout << "Assignment dead line: "; getline(cin, dL);
-	shared_ptr <Assignment> asi = make_shared <Assignment>(Assignment(nama, fM, dL, c, d, ds));
+	std::cout << "Assignment full mark: "; std::cin >> fM; std::cin.ignore();
+	std::cout << "Assignment dead line: "; getline(std::cin, dL);
+	std::shared_ptr <Assignment> asi = std::make_shared <Assignment>(Assignment(nama, fM, dL, c, d, ds));
 	c->assignments.emplace_back(asi);
 
-	cout << "Assignment added!" << endl;
+	std::cout << "Assignment added!" << std::endl;
 
 
 }
 
-void listAss(shared_ptr<Student>&s, shared_ptr<Course>& c) {
+void listAss(std::shared_ptr<Student>&s, std::shared_ptr<Course>& c) {
 
-	cout << "List of Assignments" << endl;
+	std::cout << "List of Assignments" << std::endl;
 	L();
-	if (c->assignments.size() == 0) cout << "This course has no assignments!" << endl;
+	if (c->assignments.size() == 0) std::cout << "This course has no assignments!" << std::endl;
 	else {
-		cout << left << setw(30)
+		std::cout << std::left << std::setw(30)
 			<< "Assignment name"
-			<< setw(25)
+			<< std::setw(25)
 			<< "Assignment Deadline"
 
-			<< setw(25)
+			<< std::setw(25)
 			<< "Assignment fullMark"
 			<< "My submissions"
 
-			<< endl << endl;
+			<< std::endl << std::endl;
 
 		int j = 0;
 		for (auto& x : c->assignments) {
-			cout << left << ++j << "- "
-				<< setw(27) << x->name
-				<< setw(25) << x->deadLine
-				<< setw(25) << x->fullMark;
-			//if (s.submitted.size() == 0) { cout << "No Submissions" << endl; continue; }
+			std::cout << std::left << ++j << "- "
+				<< std::setw(27) << x->name
+				<< std::setw(25) << x->deadLine
+				<< std::setw(25) << x->fullMark;
+			//if (s.submitted.size() == 0) { std::cout << "No Submissions" << std::endl; continue; }
 			auto fo = find(s->submitted.begin(), s->submitted.end(), x);
-			if (fo != s->submitted.end()) cout << "Submitted"; else cout << "No Submissions";
-			cout << endl;
+			if (fo != s->submitted.end()) std::cout << "Submitted"; else std::cout << "No Submissions";
+			std::cout << std::endl;
 		}
 
 		L();
@@ -722,37 +724,37 @@ void listAss(shared_ptr<Student>&s, shared_ptr<Course>& c) {
 
 }
 
-void listAss(shared_ptr<Doctor>& d, shared_ptr<Course>& c) {
+void listAss(std::shared_ptr<Doctor>& d, std::shared_ptr<Course>& c) {
 	clearScreen();
-	cout << "List of Assignments" << endl;
+	std::cout << "List of Assignments" << std::endl;
 	L();
-	if (c->assignments.size() == 0) { cout << "This course has no assignments!" << endl; delay(2000); return; }
+	if (c->assignments.size() == 0) { std::cout << "This course has no assignments!" << std::endl; delay(2000); return; }
 	else {
-		cout << left << setw(30)
+		std::cout << std::left << std::setw(30)
 			<< "Assignment name"
-			<< setw(25)
+			<< std::setw(25)
 			<< "Assignment Deadline"
 
-			<< setw(25)
+			<< std::setw(25)
 			<< "Assignment fullMark"
 			<< "Number of submissions"
 
-			<< endl << endl;
+			<< std::endl << std::endl;
 
 		int j = 0;
 		for (auto& x : c->assignments) {
-			cout << left << ++j << "- "
-				<< setw(27) << x->name
-				<< setw(25) << x->deadLine
+			std::cout << std::left << ++j << "- "
+				<< std::setw(27) << x->name
+				<< std::setw(25) << x->deadLine
 
-				<< setw(25) << x->fullMark
-				<< x->subs.size() << endl;
+				<< std::setw(25) << x->fullMark
+				<< x->subs.size() << std::endl;
 		}
 	}
 
 	L();
 
-	cout << "Select an assignment to view or press 'b' to go back: ";
+	std::cout << "Select an assignment to view or press 'b' to go back: ";
 	char stroke = _getch();
 	if (stroke == 'b') return;
 	clearScreen();
@@ -764,35 +766,35 @@ void listAss(shared_ptr<Doctor>& d, shared_ptr<Course>& c) {
 
 }
 void bye() {
-	cout << "A";
+	std::cout << "A";
 }
 
-void addToDr(shared_ptr<Doctor>& d) {
+void addToDr(std::shared_ptr<Doctor>& d) {
 
 	d->courses.emplace_back(COURSES.back());
 
 }
-void edit_pre(shared_ptr<Course>& cc) {
+void edit_pre(std::shared_ptr<Course>& cc) {
 
 	clearScreen();
-	cout << "Add prerequisites for " << cc->name << endl;
+	std::cout << "Add prerequisites for " << cc->name << std::endl;
 	L();
 
-	cout << "List of courses you can add as pre requisites: " << endl;
+	std::cout << "List of courses you can add as pre requisites: " << std::endl;
 	L();
 
 	bool flag = true;
 
 	int cnt = 0;
-	map <int, shared_ptr<Course> > m;
+	std::map <int, std::shared_ptr<Course> > m;
 
-	cout << left
-		<< setw(35)
+	std::cout << std::left
+		<< std::setw(35)
 		<< "Course Name"
-		<< setw(15) << "Course Code"
-		<< setw(20) << "Default Semester"
+		<< std::setw(15) << "Course Code"
+		<< std::setw(20) << "Default Semester"
 		<< "Prerequisites";
-	cout << endl << endl;
+	std::cout << std::endl << std::endl;
 
 
 
@@ -804,16 +806,16 @@ void edit_pre(shared_ptr<Course>& cc) {
 		for (auto& y : cc->pre) { if (y->name == x->name) flag = false; }
 		for (auto& z : x->pre) { if (cc->name == z->name) flag = false; }
 		if (!flag) continue;
-		cout << left << ++cnt << "- "
-			<< setw(32) << x->name
-			<< setw(15) << x->code
-			<< setw(20) << x->semester;
-		if (x->pre.size() == 0) cout << "No prerequisites." << endl;
+		std::cout << std::left << ++cnt << "- "
+			<< std::setw(32) << x->name
+			<< std::setw(15) << x->code
+			<< std::setw(20) << x->semester;
+		if (x->pre.size() == 0) std::cout << "No prerequisites." << std::endl;
 		else {
 			for (auto& g : x->pre) {
-				cout << g->name << ", ";
+				std::cout << g->name << ", ";
 			}
-			cout << endl;
+			std::cout << std::endl;
 		}
 
 		m.emplace(cnt, x);
@@ -824,186 +826,186 @@ void edit_pre(shared_ptr<Course>& cc) {
 
 	onlyOnce++;
 	L();
-	cout << "Choose a course to add or press b to go back: ";
+	std::cout << "Choose a course to add or press b to go back: ";
 	char choice;
-	cin >> choice;
-	cin.ignore();
+	std::cin >> choice;
+	std::cin.ignore();
 	if (choice == 'b' or choice == 'B') return;
 	else cc->pre.emplace_back(m[choice - 48]);
 	L();
-	cout << "Prerequisite added successfully" << endl; delay(1500);
+	std::cout << "Prerequisite added successfully" << std::endl; delay(1500);
 
 	clearScreen();
 
-	cout << "list of prerequisites for " << cc->name << endl;
+	std::cout << "list of prerequisites for " << cc->name << std::endl;
 	L();
 
 	int cnt2 = 0;
 	for (auto& x : cc->pre) {
-		cout << ++cnt2 << "- " << x->name << endl;
+		std::cout << ++cnt2 << "- " << x->name << std::endl;
 	}
 	L();
-	cout << "Press c to add another prerequisite or press b to go back: ";
+	std::cout << "Press c to add another prerequisite or press b to go back: ";
 
-	cin >> choice;
+	std::cin >> choice;
 
-	cin.ignore();
+	std::cin.ignore();
 
 	if (choice == 'b' or choice == 'B') return;
 	else if (choice == 'c' or choice == 'C') {
 
-		if (cc->pre.size() == soz) { L(); cout << "No more courses to add\n"; delay(1600); return; }
+		if (cc->pre.size() == soz) { L(); std::cout << "No more courses to add\n"; delay(1600); return; }
 
 		edit_pre(cc);
 	}
 
 }
-void viewSub(shared_ptr <pair<shared_ptr <Student> const, shared_ptr<Submission> > > temp, shared_ptr<Assignment>& as, shared_ptr<Doctor>& d) {
+void viewSub(std::shared_ptr <std::pair<std::shared_ptr <Student> const, std::shared_ptr<Submission> > > temp, std::shared_ptr<Assignment>& as, std::shared_ptr<Doctor>& d) {
 	clearScreen();
-	cout << "View submission" << endl;
+	std::cout << "View submission" << std::endl;
 	L();
-	cout << "Submission name: " << temp->second->name << endl
-		<< "Student name: " << temp->first->name << endl
-		<< "Student answer: " << endl;
+	std::cout << "Submission name: " << temp->second->name << std::endl
+		<< "Student name: " << temp->first->name << std::endl
+		<< "Student answer: " << std::endl;
 	for (auto& x : temp->second->ans) {
-		cout << x << endl;
+		std::cout << x << std::endl;
 	}
-	cout << endl;
-	cout << "Submission status: " << temp->second->graded << endl;
-	cout << "Marks: ";
-	(temp->second->graded == "Not graded") ? cout << "N/A" << endl : cout << temp->second->mark << endl;
+	std::cout << std::endl;
+	std::cout << "Submission status: " << temp->second->graded << std::endl;
+	std::cout << "Marks: ";
+	(temp->second->graded == "Not graded") ? std::cout << "N/A" << std::endl : std::cout << temp->second->mark << std::endl;
 
 	L();
 
-	cout << "Comments:" << endl;
+	std::cout << "Comments:" << std::endl;
 	L();
 	viewComments(temp->second);
 
-	cout << "Press b to go back, c to add a coment, or g to grade assignment";
+	std::cout << "Press b to go back, c to add a coment, or g to grade assignment";
 	char stroke = _getch();
 	if (stroke == 'b' or stroke == 'B') viewAss(as, d);
 	else if (stroke == 'g' or stroke == 'G') {
-		cout << endl;
+		std::cout << std::endl;
 		L();
-		cout << "Enter the grade: ";
+		std::cout << "Enter the grade: ";
 		double mark;
-		cin >> mark;
+		std::cin >> mark;
 		temp->second->graded = "Graded";
 		temp->second->mark = mark;
-		cin.ignore();
-		cout << "Marks for the submission has been updated" << endl;
+		std::cin.ignore();
+		std::cout << "Marks for the submission has been updated" << std::endl;
 		delay(1500);
 		viewSub(temp, as, d);
 	}
 	else if (stroke == 'c' or stroke == 'C') {
-		cout << "\nnew comment: ";
-		string tomp = "Dr." + d->name + ": \n";
-		deque <string> t;
+		std::cout << "\nnew comment: ";
+		std::string tomp = "Dr." + d->name + ": \n";
+		std::deque <std::string> t;
 		t.emplace_back(tomp);
 
-		while (getline(cin, tomp) and tomp != "") {
+		while (getline(std::cin, tomp) and tomp != "") {
 			t.emplace_back(tomp);
 		}
 		if (t.size() > 1) {
 			temp->second->addComment(t);
-			cout << "Comment added" << endl;
+			std::cout << "Comment added" << std::endl;
 		}
 
-		else cout << "No comment added" << endl;
+		else std::cout << "No comment added" << std::endl;
 		delay(1500);
 		viewSub(temp, as, d);
 	}
 }
 
-void subList(shared_ptr<Assignment>& as, shared_ptr<Doctor>& d) {
-	cout << "List of submissions" << endl;
+void subList(std::shared_ptr<Assignment>& as, std::shared_ptr<Doctor>& d) {
+	std::cout << "List of submissions" << std::endl;
 	L();
 	if (as->subs.size() == 0) {
-		cout << "No submissions so far!\nPress 'b' to go back" << endl;
+		std::cout << "No submissions so far!\nPress 'b' to go back" << std::endl;
 		char stroke = _getch();
 		if (stroke == 'b' or stroke == 'B') return;
 	}
-	cout << left
-		<< setw(30) << "Submission name"
-		<< setw(30) << "Student name"
-		<< setw(20) << "Status"
-		<< "Mark" << endl << endl;
+	std::cout << std::left
+		<< std::setw(30) << "Submission name"
+		<< std::setw(30) << "Student name"
+		<< std::setw(20) << "Status"
+		<< "Mark" << std::endl << std::endl;
 	int j = 0;
 
 
-	deque < shared_ptr <pair<shared_ptr <Student> const, shared_ptr<Submission> > > > temp;
+	std::deque < std::shared_ptr <std::pair<std::shared_ptr <Student> const, std::shared_ptr<Submission> > > > temp;
 
 	for (auto& x : as->subs) {
-		cout << left << ++j << "- "
-			<< setw(27) << x.second->name
-			<< setw(30) << x.first->name
-			<< setw(20) << x.second->graded;
-		(x.second->graded == "Not graded") ? cout << "N/A" : cout << x.second->mark;
-		cout << endl;
-		temp.emplace_back(make_shared < pair < shared_ptr <Student> const, shared_ptr<Submission > > >(x));
+		std::cout << std::left << ++j << "- "
+			<< std::setw(27) << x.second->name
+			<< std::setw(30) << x.first->name
+			<< std::setw(20) << x.second->graded;
+		(x.second->graded == "Not graded") ? std::cout << "N/A" : std::cout << x.second->mark;
+		std::cout << std::endl;
+		temp.emplace_back(std::make_shared < std::pair < std::shared_ptr <Student> const, std::shared_ptr<Submission > > >(x));
 
 	}
-	cout << endl;
-	cout << "Choose a submission to view or press 'b' to go back: ";
+	std::cout << std::endl;
+	std::cout << "Choose a submission to view or press 'b' to go back: ";
 	char stroke = _getch();
 	if (stroke == 'b') return;
 	else viewSub(temp[(int)stroke - 49], as, d);
 
 }
-void viewAss(shared_ptr<Assignment>& as, shared_ptr<Doctor>& d) {
+void viewAss(std::shared_ptr<Assignment>& as, std::shared_ptr<Doctor>& d) {
 	clearScreen();
-	cout << "View Assignment" << endl;
+	std::cout << "View Assignment" << std::endl;
 	L();
-	cout << "Assignment name: " << as->name << endl;
-	cout << "Assignment Description: \n";
+	std::cout << "Assignment name: " << as->name << std::endl;
+	std::cout << "Assignment Description: \n";
 	for (auto& x : as->desc) {
-		cout << x << endl;
+		std::cout << x << std::endl;
 	}
-	cout << endl;
-	cout << "Assignment deadline: " << as->deadLine << endl;
-	cout << "Assignment full mark: " << as->fullMark << endl;
-	cout << endl;
+	std::cout << std::endl;
+	std::cout << "Assignment deadline: " << as->deadLine << std::endl;
+	std::cout << "Assignment full mark: " << as->fullMark << std::endl;
+	std::cout << std::endl;
 
 	subList(as, d);
 
 }
-void makeSubmission(shared_ptr<Student>&s, shared_ptr<Assignment>& as) {
+void makeSubmission(std::shared_ptr<Student>&s, std::shared_ptr<Assignment>& as) {
 
-	string n;   deque <string > ans;
+	std::string n;   std::deque <std::string > ans;
 
-	cout << "Submission name: "; getline(cin, n);
-	cout << "Your answer: " << endl;
-	string temp = "-";
-	while (getline(cin, temp) and temp != "") {
+	std::cout << "Submission name: "; getline(std::cin, n);
+	std::cout << "Your answer: " << std::endl;
+	std::string temp = "-";
+	while (getline(std::cin, temp) and temp != "") {
 		ans.push_back(temp);
 	}
 	s->submitted.emplace_back(as);
 	
-	as->subs.emplace(s, make_shared<Submission>(Submission(n, as, ans)));
+	as->subs.emplace(s, std::make_shared<Submission>(Submission(n, as, ans)));
 
 }
 
-void viewAss(shared_ptr<Assignment>& as, shared_ptr <Student>& s, shared_ptr<Course>& c) {
+void viewAss(std::shared_ptr<Assignment>& as, std::shared_ptr <Student>& s, std::shared_ptr<Course>& c) {
 
-	cout << "Assignment name: " << as->name << endl;
-	cout << "Assignment Description: \n";
+	std::cout << "Assignment name: " << as->name << std::endl;
+	std::cout << "Assignment Description: \n";
 	for (auto& x : as->desc) {
-		cout << x << endl;
+		std::cout << x << std::endl;
 	}
-	cout << endl;
-	cout << "Assignment deadline: " << as->deadLine << endl;
-	cout << "Assignment full mark: " << as->fullMark << endl;
-	//cout << "Assignment Average: " << /*AVg*/ endl;
-	cout << endl;
+	std::cout << std::endl;
+	std::cout << "Assignment deadline: " << as->deadLine << std::endl;
+	std::cout << "Assignment full mark: " << as->fullMark << std::endl;
+	//std::cout << "Assignment Average: " << /*AVg*/ std::endl;
+	std::cout << std::endl;
 	L();
-	cout << "Your Submission: " << endl << endl;
+	std::cout << "Your Submission: " << std::endl << std::endl;
 
 
 
 	auto it = find(s->submitted.begin(), s->submitted.end(), as);
 	if (it == s->submitted.end()) {
 
-		cout << "No submission made, Press 's' to make a submission or press 'b' to go back" << endl;
+		std::cout << "No submission made, Press 's' to make a submission or press 'b' to go back" << std::endl;
 		char stroke;
 		stroke = _getch();
 
@@ -1013,26 +1015,26 @@ void viewAss(shared_ptr<Assignment>& as, shared_ptr <Student>& s, shared_ptr<Cou
 
 			makeSubmission(s, as);
 			L();
-			cout << "Thanks for making a submission!";
+			std::cout << "Thanks for making a submission!";
 			delay(1000);
-			cout << endl;
+			std::cout << std::endl;
 			stViewCourse(c, s);
 		}
 
 	}
 	else {
 
-		cout << left
-			<< setw(30) << "Submission name"
-			<< setw(25) << "Submition status"
-			<< "Marks" << endl
-			<< setw(30) << as->subs[s]->name
-			<< setw(25) << as->subs[s]->graded;
-		(as->subs[s]->graded == "Not graded") ? cout << "N/A" : cout << as->subs[s]->mark;
-		cout << endl;
+		std::cout << std::left
+			<< std::setw(30) << "Submission name"
+			<< std::setw(25) << "Submition status"
+			<< "Marks" << std::endl
+			<< std::setw(30) << as->subs[s]->name
+			<< std::setw(25) << as->subs[s]->graded;
+		(as->subs[s]->graded == "Not graded") ? std::cout << "N/A" : std::cout << as->subs[s]->mark;
+		std::cout << std::endl;
 		L();
 
-		cout << "Press s to view submission or b to go back: ";
+		std::cout << "Press s to view submission or b to go back: ";
 		char stroke;
 		stroke = _getch();
 
@@ -1044,118 +1046,118 @@ void viewAss(shared_ptr<Assignment>& as, shared_ptr <Student>& s, shared_ptr<Cou
 
 }
 
-void viewComments(shared_ptr <Submission>& sub) {
+void viewComments(std::shared_ptr <Submission>& sub) {
 	int cnt = 1;
 	for (auto& x : sub->comments) {
 
 		for (auto& y : x) {
-			for (int i = 0; i < cnt; i++) cout << '\t';
-			cout << y << endl;
+			for (int i = 0; i < cnt; i++) std::cout << '\t';
+			std::cout << y << std::endl;
 		}
 		L();
 		cnt++;
 	}
 
 }
-void viewSub(shared_ptr <Submission>& sub, shared_ptr<Student>&s, shared_ptr<Course>& c) {
+void viewSub(std::shared_ptr <Submission>& sub, std::shared_ptr<Student>&s, std::shared_ptr<Course>& c) {
 	clearScreen();
-	cout << "Submission for " << sub->asi->name;
+	std::cout << "Submission for " << sub->asi->name;
 	L();
-	cout << "Submission name: " << sub->name << endl
-		<< "Answer: " << endl;
+	std::cout << "Submission name: " << sub->name << std::endl
+		<< "Answer: " << std::endl;
 	for (auto& x : sub->ans) {
-		cout << x << endl;
+		std::cout << x << std::endl;
 	}
-	cout << endl << "Grade: ";
-	if (sub->graded == "Not graded") cout << "N/A" << endl;
-	else cout << sub->mark << endl;
+	std::cout << std::endl << "Grade: ";
+	if (sub->graded == "Not graded") std::cout << "N/A" << std::endl;
+	else std::cout << sub->mark << std::endl;
 	L();
-	cout << "Comments: " << endl;
+	std::cout << "Comments: " << std::endl;
 	L();
 	viewComments(sub);
-	cout << endl;
+	std::cout << std::endl;
 	L();
-	cout << "Press 'b' to go back, or press 'c' to post a comment";
+	std::cout << "Press 'b' to go back, or press 'c' to post a comment";
 	char stroke = _getch();
 	if (stroke == 'b' or stroke == 'B') stViewCourse(c, s);
 	else if (stroke == 'c' or stroke == 'C') {
-		cout << "\nnew comment: ";
-		string temp = s->name + ": \n";
-		deque <string> t;
+		std::cout << "\nnew comment: ";
+		std::string temp = s->name + ": \n";
+		std::deque <std::string> t;
 		t.emplace_back(temp);
 
-		while (getline(cin, temp) and temp != "") {
+		while (getline(std::cin, temp) and temp != "") {
 			t.emplace_back(temp);
 		}
 		if (t.size() > 1) {
 			sub->addComment(t);
-			cout << "Comment added" << endl;
+			std::cout << "Comment added" << std::endl;
 
 		}
 
 
-		else cout << "No comment added" << endl;
+		else std::cout << "No comment added" << std::endl;
 		delay(1500);
 		viewSub(sub, s, c);
 	}
 }
 
-void courseGrades(shared_ptr<Course>& c) {
+void courseGrades(std::shared_ptr<Course>& c) {
 
 	if (c->assignments.size() == 0) {
-		cout << "This course does not have any assignments yet";
+		std::cout << "This course does not have any assignments yet";
 		delay(2000);
 		return;
 	}
 
 	if (c->studentCnt.size() == 0) {
-		cout << "No students are enrolled in this course";
+		std::cout << "No students are enrolled in this course";
 		delay(2000);
 		return;
 
 	}
-	cout << left << setw(25) << "Student";
+	std::cout << std::left << std::setw(25) << "Student";
 	for (auto& x : c->assignments) {
-		cout << setw(25) << x->name;
+		std::cout << std::setw(25) << x->name;
 	}
-	cout << endl;
+	std::cout << std::endl;
 	L();
 
 
 	for (auto& x : c->studentCnt) {
 
-		cout << setw(25) << x->name;
+		std::cout << std::setw(25) << x->name;
 
 		for (auto& y : c->assignments) {
 			if (y->subs.find(x) == y->subs.end()) {
-				cout << left << setw(22) << "Not Submitted";
+				std::cout << std::left << std::setw(22) << "Not Submitted";
 				continue;
 			}
-			if (y->subs[x]->graded == "Not graded") cout << left << setw(23) << "Not Graded";
-			else cout << y->subs[x]->mark << "/" << setw(23) << y->fullMark;
+			if (y->subs[x]->graded == "Not graded") std::cout << std::left << std::setw(23) << "Not Graded";
+			else std::cout << y->subs[x]->mark << "/" << std::setw(23) << y->fullMark;
 		}
 	
-		cout << endl;
+		std::cout << std::endl;
 	}
-	cout << endl;
+	std::cout << std::endl;
 	L();
-	cout << "press b to go back";
+	std::cout << "press b to go back";
 	char stroke = _getch();
 	if (stroke == 'b' or stroke == 'B') return;
 
 }
 
-void gradeList(shared_ptr<Student>&s) {
+void gradeList(std::shared_ptr<Student>&s) {
 	clearScreen();
-	cout << "Grade List" << endl;
+	std::cout << "Grade List" << std::endl;
 	L();
 	double mark;
 
-	cout << setw(40) << "Course" << "Marks" << endl; L();
+	std::cout << std::setw(40) << "Course" << "Marks" << std::endl; L();
 
 	for (auto& x : s->courses) {
 		mark = 0;
-		cout << left << setw(40) << x->name;
+		std::cout << std::left << std::setw(40) << x->name;
 		for (auto& y : x->assignments) {
 			if (y->subs.find(s) == y->subs.end()) continue;
 			if (y->subs[s]->graded == "Not graded") continue;
@@ -1163,20 +1165,20 @@ void gradeList(shared_ptr<Student>&s) {
 			
 		}
 		
-		cout << mark << "%";
-		cout << endl;
+		std::cout << mark << "%";
+		std::cout << std::endl;
 	}
 
 	L();
 
-	cout << "Press b to go back: ";
+	std::cout << "Press b to go back: ";
 	char stroke = _getch();
 	if (stroke == 'b' or 'B') return;
 
 }
 
 
-void loadC(shared_ptr<Student>&x) {
+void loadC(std::shared_ptr<Student>&x) {
 	for (int i = 0; i < COURSES.size(); i++) {
 		if (COURSES[i]->semester == x->semester) {
 
