@@ -4,25 +4,23 @@
 #include <string>
 #include "Course.h"
 #include <algorithm>
-using namespace std;
 
 struct Student;
-
 
 // extern deque <shared_ptr<Course> > COURSES;
 
 struct Doctor {
 	// Members
 	//=======================================================================================
-	string name;
-	string username;
-	deque <shared_ptr<Course> > courses; // a vector to store the courses the doctor is teaching
+	std::string name;
+	std::string username;
+	std::deque <std::shared_ptr<Course> > courses; // a vector to store the courses the doctor is teaching
 	//=======================================================================================
 
 	// Constructor and deconstructor
 	//=======================================================================================
 
-	Doctor(string n, string u);
+	Doctor(std::string n, std::string u);
 	~Doctor() { }
 	//=======================================================================================
 
@@ -31,11 +29,11 @@ struct Doctor {
 	//---------------------------------------------------------------------------------------
 
 	//---------------------------------------------------------------------------------------
-	void removeCourse(string name) {
-		auto pred = [name](shared_ptr <Course> course) {
+	void removeCourse(std::string name) {
+		auto pred = [name](std::shared_ptr <Course> course) {
 			return course->name == name;
 		};
-		auto it = find_if(courses.begin(), courses.end(), pred);
+		auto it = std::find_if(courses.begin(), courses.end(), pred);
 		courses.erase(it);
 	}
 	//---------------------------------------------------------------------------------------
@@ -52,3 +50,4 @@ struct Doctor {
 		else return username < b.username;
 	}
 };
+

@@ -1,56 +1,39 @@
 #pragma once
 #include <iostream>
-#include <algorithm>
-#include <vector>
-#include <set>
 #include <string>
-#include <cstring>
-#include <queue>
-#include <stack>
-#include <fstream>
-#include <iomanip>
-#include <chrono>
-#include <thread>
-// #include <conio.h>
+#include <deque>
 #include <map>
-#include <cstdlib>
-#include <assert.h>
-using namespace std;
-using namespace this_thread;
-using namespace std::chrono;
-
 #include "Student.h"
 #include "Course.h"
 #include "Submission.h"
-
 struct Doctor;
 
 
-extern deque <shared_ptr<Student> > STUDENTS;
+extern std::deque <std::shared_ptr<Student> > STUDENTS;
 
 
 
 
 struct Assignment {
-	string name;
+	std::string name;
 	double fullMark;
-	string deadLine;
+	std::string deadLine;
 
-	shared_ptr < Course >crs;
-	shared_ptr < Doctor > dr;
-	deque <string> desc;
+	std::shared_ptr < Course >crs;
+	std::shared_ptr < Doctor > dr;
+	std::deque <std::string> desc;
 
-	deque < double > marks;
-	map <shared_ptr <Student>, shared_ptr<Submission> > subs;
+	std::deque < double > marks;
+	std::map <std::shared_ptr <Student>, std::shared_ptr<Submission> > subs;
 
-	Assignment(string n, double fM, string dL, deque <string>ds) {
+	Assignment(std::string n, double fM, std::string dL, std::deque <std::string>ds) {
 
 		name = n; fullMark = fM, deadLine = dL; desc = ds;
 
 
 	}
 
-	Assignment(string n, double fM, string dL, shared_ptr < Course >  c, shared_ptr < Doctor >d, deque <string>ds) {
+	Assignment(std::string n, double fM, std::string dL, std::shared_ptr < Course >  c, std::shared_ptr < Doctor >d, std::deque <std::string>ds) {
 
 		name = n; fullMark = fM, deadLine = dL; crs = c; dr = d; desc = ds;
 
@@ -64,5 +47,4 @@ struct Assignment {
 		return deadLine < b.deadLine;
 	}
 };
-
 

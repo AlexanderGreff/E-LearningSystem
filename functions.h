@@ -7,25 +7,25 @@
 //============================= FUNCTIONS PROTOTYPES =========================================
 //Flags for the login proccess
 
-// extern deque <shared_ptr<Student> > STUDENTS;
+// extern std::deque <std::shared_ptr<Student> > STUDENTS;
 
-// extern deque <shared_ptr<Course> > COURSES;
-// extern deque <shared_ptr<Doctor> > DOCTORS;
+// extern std::deque <std::shared_ptr<Course> > COURSES;
+// extern std::deque <std::shared_ptr<Doctor> > DOCTORS;
 extern int wait;
 extern int status;
 extern int soz ;
 
 
-extern vector <string> doctors;
-extern vector <string> students;
-extern vector <string> studentsID;
+extern std::vector <std::string> doctors;
+extern std::vector <std::string> students;
+extern std::vector <std::string> studentsID;
 
 
 //mp
 //Main Menu function
 void mainMenu();
 //Login function
-void login(vector<string>& s = students, vector<string>& d = doctors, int trials = 2, string message = "");
+void login(std::vector<std::string>& s = students, std::vector<std::string>& d = doctors, int trials = 2, std::string message = "");
 //Signup function
 void signUp();
 //Function to take unbuffered input
@@ -36,49 +36,52 @@ void delay(int s);
 void L(int t = 0);
 //sp
 //Function to display Student's menu
-void studentMenu(shared_ptr<Student>& s);
+void studentMenu(std::shared_ptr<Student>& s);
 //Function to display the list of courses of a student
-void coursesList(shared_ptr<Student>& S);
+void coursesList(std::shared_ptr<Student>& S);
 //Function to register a course for the student (tmep_
-void registerCourse(shared_ptr<Student>& s);
+void registerCourse(std::shared_ptr<Student>& s);
 
 //Function to display info for a course for student
-void stViewCourse(shared_ptr<Course>& c, shared_ptr<Student>& S);
+void stViewCourse(std::shared_ptr<Course>& c, std::shared_ptr<Student>& S);
 //Function to auto add courses by semester
-void autoAdd(shared_ptr<Course>& C);
+void autoAdd(std::shared_ptr<Course>& C);
 //dp
 //Function to display Doctor's menu
-void courseGrades(shared_ptr<Course>& c);
-void doctorMenu(shared_ptr<Doctor>& d);
+void courseGrades(std::shared_ptr<Course>& c);
+void doctorMenu(std::shared_ptr<Doctor>& d);
 //Function to dispaly the list of courses of a doctor
-void coursesList(shared_ptr<Doctor>& D);
+void coursesList(std::shared_ptr<Doctor>& D);
 //Function to create a course by doctor
-void addToDr(shared_ptr<Doctor>& d);
-void notAutoAdd(shared_ptr<Course>& C);
-void edit_pre(shared_ptr<Course>& cc);
+void addToDr(std::shared_ptr<Doctor>& d);
+void notAutoAdd(std::shared_ptr<Course>& C);
+void edit_pre(std::shared_ptr<Course>& cc);
 
 
-void create(shared_ptr<Doctor>& d);
+void create(std::shared_ptr<Doctor>& d);
 
-void addAssignmentToCourse(shared_ptr<Doctor>& d, shared_ptr<Course>& c);
-void listAss(shared_ptr<Doctor>& d, shared_ptr<Course>& c);
-void listAss(shared_ptr<Student>& s, shared_ptr<Course>& c);
+void addAssignmentToCourse(std::shared_ptr<Doctor>& d, std::shared_ptr<Course>& c);
+void listAss(std::shared_ptr<Doctor>& d, std::shared_ptr<Course>& c);
+void listAss(std::shared_ptr<Student>& s, std::shared_ptr<Course>& c);
 //Function to display info for a course for doctor
-void drViewCourse(shared_ptr<Course>& c, shared_ptr<Doctor>& D);
+void drViewCourse(std::shared_ptr<Course>& c, std::shared_ptr<Doctor>& D);
 void bye();
-void makeSubmission(shared_ptr<Student>& s, shared_ptr<Assignment>& as);
-void viewAss(shared_ptr<Assignment>& as, shared_ptr<Doctor>& d);
-void viewComments(shared_ptr <Submission>& sub);
-void viewSub(shared_ptr <pair<shared_ptr <Student> const, shared_ptr<Submission> > > temp, shared_ptr<Assignment>& as, shared_ptr<Doctor>& d);
-void subList(shared_ptr<Assignment>& as, shared_ptr<Doctor>& d);
+void makeSubmission(std::shared_ptr<Student>& s, std::shared_ptr<Assignment>& as);
+void viewAss(std::shared_ptr<Assignment>& as, std::shared_ptr<Doctor>& d);
+void viewComments(std::shared_ptr <Submission>& sub);
+void viewSub(std::shared_ptr <std::pair<std::shared_ptr <Student> const, std::shared_ptr<Submission> > > temp, std::shared_ptr<Assignment>& as, std::shared_ptr<Doctor>& d);
+void subList(std::shared_ptr<Assignment>& as, std::shared_ptr<Doctor>& d);
 
-void viewSub(shared_ptr<Submission>& sub, shared_ptr<Student>& s, shared_ptr<Course>& c);
+void viewSub(std::shared_ptr<Submission>& sub, std::shared_ptr<Student>& s, std::shared_ptr<Course>& c);
 
-void viewAss(shared_ptr<Assignment>& as, shared_ptr<Doctor>& d);
+void viewAss(std::shared_ptr<Assignment>& as, std::shared_ptr<Doctor>& d);
 
-void viewAss(shared_ptr<Assignment>& as, shared_ptr <Student>& s, shared_ptr<Course>& c);
+void viewAss(std::shared_ptr<Assignment>& as, std::shared_ptr <Student>& s, std::shared_ptr<Course>& c);
 
-void loadC(shared_ptr<Student>& x);
-void gradeList(shared_ptr<Student>& s);
+void loadC(std::shared_ptr<Student>& x);
+void gradeList(std::shared_ptr<Student>& s);
 
 char _getch();
+
+char _getch();
+

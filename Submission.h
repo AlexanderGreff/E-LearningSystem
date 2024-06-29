@@ -3,20 +3,19 @@
 #include <string>
 #include <memory>
 #include <deque>
-using namespace std;
+// using namespace std;
 #include "Assignment.h"
 
 struct Submission {
-	string name;
-	shared_ptr <Assignment> asi;
-	shared_ptr <Student> std;
-	string graded;
+	std::string name;
+	std::shared_ptr <Assignment> asi;
+	std::shared_ptr <Student> std;
+	std::string graded;
 	double mark;
-	deque <string > ans;
-	deque <deque <string > > comments;
+	std::deque <std::string > ans;
+	std::deque <std::deque <std::string > > comments;
 
-
-	Submission(string n, shared_ptr<Assignment> a, deque <string > ba) {
+	Submission(std::string n, std::shared_ptr<Assignment> a, std::deque <std::string > ba) {
 		name = n; asi = a;   ans = ba;
 		graded = "Not graded";
 	}
@@ -27,11 +26,9 @@ struct Submission {
 		mark = m;
 	}
 
-	void addComment(deque < string >& c) {
+	void addComment(std::deque < std::string >& c) {
 		comments.push_back(c);
 	}
 };
-
-
 
 

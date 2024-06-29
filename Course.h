@@ -5,7 +5,6 @@
 #include <memory>
 #include <deque>
 #include <set>
-using namespace std;
 
 struct Student;
 struct Assignment;
@@ -13,22 +12,22 @@ struct Assignment;
 struct Course {
 	//Members
 	//===========================================================================================
-	string name;
-	string code;
-	string Dr;
+	std::string name;
+	std::string code;
+	std::string Dr;
 	int semester;                    // to allow automatic addition of students in this semester
 	int status;
-	deque <shared_ptr <Assignment> > assignments;
-	vector< string > desc;
+	std::deque <std::shared_ptr <Assignment> > assignments;
+	std::vector< std::string > desc;
 	bool described = false;
-	deque <shared_ptr<Course> > pre;
-	set < shared_ptr <Student> > studentCnt;
+	std::deque <std::shared_ptr<Course> > pre;
+	std::set < std::shared_ptr <Student> > studentCnt;
 	
-	Course(string n, string c, string D, int sem) {
+	Course(std::string n, std::string c, std::string D, int sem) {
 		name = n; code = c; Dr = D; semester = sem;
 
 	}
-	Course(string n, string c, string D, int sem, deque <shared_ptr<Course> >& temp) {
+	Course(std::string n, std::string c, std::string D, int sem, std::deque <std::shared_ptr<Course> >& temp) {
 		name = n; code = c; Dr = D; semester = sem; pre = temp;
 
 	}
@@ -45,45 +44,45 @@ struct Course {
 
 	void drSummary() {
 
-		cout << "Course Description: ";
+		std::cout << "Course Description: ";
 		if (described) {
-			cout << endl;
+			std::cout << std::endl;
 
 			for (auto& s : desc) {
-				cout << s << endl;
+				std::cout << s << std::endl;
 			}
-			cout << endl;
+			std::cout << std::endl;
 		}
-		else cout << "\nNo course Description, press 'd' to add a new one" << endl << endl;
+		else std::cout << "\nNo course Description, press 'd' to add a new one" << std::endl << std::endl;
 
-		cout << "Course Name: " << name << endl
-			<< "Course Code: " << code << endl
-			<< "Number of students: " << studentCnt.size() << endl
-			<< "Number of assignments: " << assignments.size() << endl;
+		std::cout << "Course Name: " << name << std::endl
+			<< "Course Code: " << code << std::endl
+			<< "Number of students: " << studentCnt.size() << std::endl
+			<< "Number of assignments: " << assignments.size() << std::endl;
 	}
 
 	void stSummary() {
-		cout << "Course Description: ";
+		std::cout << "Course Description: ";
 		if (described) {
-			cout << endl;
+			std::cout << std::endl;
 			for (auto& s : desc) {
-				cout << s << endl;
+				std::cout << s << std::endl;
 			}
 		}
-		else cout << "\nNo course Description" << endl;
-		cout << endl;
-		cout << "Course Name: " << name << endl
-			<< "Course Code: " << code << endl
-			<< "Dr: " << Dr << endl;
+		else std::cout << "\nNo course Description" << std::endl;
+		std::cout << std::endl;
+		std::cout << "Course Name: " << name << std::endl
+			<< "Course Code: " << code << std::endl
+			<< "Dr: " << Dr << std::endl;
 
 	}
 
 	void setDesc() {
-		string temp;
-		cout << "Press  enter twice to go back" << endl;
+		std::string temp;
+		std::cout << "Press  enter twice to go back" << std::endl;
 
 
-		while (getline(cin, temp) and temp != "") {
+		while (std::getline(std::cin, temp) and temp != "") {
 			desc.push_back(temp);
 		}
 		described = true;
@@ -98,13 +97,13 @@ struct Course {
 	//	auto pred = [name](const Assignment& assignment) {
 	//		return assignment.name == name;
 	//	};
-	//	auto it = find_if(assignments.begin(), assignments.end(), pred);
+	//	auto it = std::find_if(assignments.begin(), assignments.end(), pred);
 	//	assignments.erase(it);
 	//}
 
 	//Overloaded operators
 	//===========================================================================================
-	bool operator == (shared_ptr <Course>  b) {
+	bool operator == (std::shared_ptr <Course>  b) {
 		return code == b->code;
 	}                                                      // to recognise same course by code
 
@@ -117,4 +116,5 @@ static bool operator< (const Course& a, const Course& b)
 	if (a.semester == b.semester) return a.name < b.name;
 	else return a.semester < b.semester;
 }
+
 

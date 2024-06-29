@@ -1,30 +1,29 @@
 #pragma once
 #include <vector>
 #include <string>
-using namespace std;
 #include "Course.h"
 #include "Assignment.h"
 
 
 
-extern deque <shared_ptr<Course> > COURSES;
+extern std::deque <std::shared_ptr<Course> > COURSES;
 
 struct Student {
 	// Members
 	//=======================================================================================
-	string name;
-	string ID;
-	string username;
+	std::string name;
+	std::string ID;
+	std::string username;
 	int semester;
-	deque < shared_ptr<Course> > courses;             // a vector to store the courses a student is taking
-	deque <shared_ptr <Assignment> > submitted;
+	std::deque < std::shared_ptr<Course> > courses;             // a vector to store the courses a student is taking
+	std::deque <std::shared_ptr <Assignment> > submitted;
 
 	//=======================================================================================
 
 	// Constructor and deconstructor
 	//=======================================================================================
 
-	Student(string n, string I, string u, int sem) {
+	Student(std::string n, std::string I, std::string u, int sem) {
 
 		name = n; ID = I; username = u; semester = sem;
 
@@ -37,11 +36,11 @@ struct Student {
 	//Methods
 	//=======================================================================================
 
-	void dropCourse(string name) {
-		auto pred = [name](shared_ptr<Course> course) {
+	void dropCourse(std::string name) {
+		auto pred = [name](std::shared_ptr<Course> course) {
 			return course->name == name;
 		};
-		auto it = find_if(courses.begin(), courses.end(), pred);
+		auto it = std::find_if(courses.begin(), courses.end(), pred);
 		courses.erase(it);
 	}
 	//---------------------------------------------------------------------------------------
@@ -55,7 +54,7 @@ struct Student {
 		return username == b.username;
 	}                                                //to recognise same student by username
 
-	bool operator()(shared_ptr<Student>& a, shared_ptr <Student>& b) const {
+	bool operator()(std::shared_ptr<Student>& a, std::shared_ptr <Student>& b) const {
 		if (a->semester == b->semester) return a->name < b->name;
 		else return a->semester < b->semester;
 	}
