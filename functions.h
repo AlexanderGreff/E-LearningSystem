@@ -1,16 +1,16 @@
 #pragma once
 
-
+#include "Database.hpp"
 #include "Student.h"
 #include "Doctor.h"
 
 //============================= FUNCTIONS PROTOTYPES =========================================
 //Flags for the login proccess
 
-extern deque <shared_ptr<Student> > STUDENTS;
+// extern deque <shared_ptr<Student> > STUDENTS;
 
-extern deque <shared_ptr<Course> > COURSES;
-extern deque <shared_ptr<Doctor> > DOCTORS;
+// extern deque <shared_ptr<Course> > COURSES;
+// extern deque <shared_ptr<Doctor> > DOCTORS;
 extern int wait;
 extern int status;
 extern int soz ;

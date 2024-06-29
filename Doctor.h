@@ -1,28 +1,29 @@
 #pragma once
 #include <iostream>
-#include <algorithm>
+// #include <algorithm>
 #include <vector>
-#include <set>
+// #include <set>
 #include <string>
-#include <cstring>
-#include <queue>
-#include <stack>
-#include <fstream>
-#include <iomanip>
-#include <chrono>
-#include <thread>
+#include "Course.h"
+// #include <cstring>
+// #include <queue>
+// #include <stack>
+// #include <fstream>
+// #include <iomanip>
+// #include <chrono>
+// #include <thread>
 // #include <conio.h>
-#include <map>
-#include <cstdlib>
-#include <assert.h>
+// #include <map>
+// #include <cstdlib>
+// #include <assert.h>
 using namespace std;
-using namespace this_thread;
-using namespace std::chrono;
+// using namespace this_thread;
+// using namespace std::chrono;
 
 struct Student;
 
 
-extern deque <shared_ptr<Course> > COURSES;
+// extern deque <shared_ptr<Course> > COURSES;
 
 struct Doctor {
 	// Members
@@ -35,13 +36,7 @@ struct Doctor {
 	// Constructor and deconstructor
 	//=======================================================================================
 
-	Doctor(string n, string u) {
-		name = n; username = u;
-		for (int i = 0; i < COURSES.size(); i++) {
-			if (COURSES[i]->Dr == name) courses.emplace_back(COURSES[i]);
-		}
-
-	}
+	Doctor(string n, string u);
 	~Doctor() { }
 	//=======================================================================================
 

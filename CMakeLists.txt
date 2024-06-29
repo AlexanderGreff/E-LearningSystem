@@ -8,6 +8,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # treat warnings as errors
 add_compile_options(-Wall -Werror -Wno-sign-compare -Wno-unused-variable -Wno-unused-function -Wno-infinite-recursion)
 
-add_executable(driverMain driverMain.cpp functions.cpp)
+add_executable(driverMain)
+target_sources(driverMain PRIVATE
+    driverMain.cpp
+    functions.cpp
+    Doctor.cpp
+    Database.cpp
+)
 
 
