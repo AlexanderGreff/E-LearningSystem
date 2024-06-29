@@ -9,4 +9,3 @@ The project is sort of a clone of the E-learning platform we use at my universit
 There are many things that I know need to be improved and some bugs(and may or may not change as this project is a bit old now).
 
 
-

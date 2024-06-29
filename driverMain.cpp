@@ -41,10 +41,18 @@ deque <shared_ptr <Doctor> > DOCTORS = {
 	make_shared <Doctor> (Doctor("Ahmed Yousif", "Ahmed"))
 };
 
-
+int foo(int i)
+{
+	static int a = 20;
+	a += i;
+	return a;
+}
 //============================= MAIN FUNCTION ==================================================
 
 int main() {
+	std::cout << foo(10) << std::endl;
+	std::cout << foo(20) << std::endl;
+	return 0;
 
 	//Loading up some example data for assignments for an example course
 
