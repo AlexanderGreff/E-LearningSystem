@@ -11,7 +11,7 @@
 #include <iomanip>
 #include <chrono>
 #include <thread>
-#include <conio.h>
+// #include <conio.h>
 #include <map>
 #include <cstdlib>
 #include <assert.h>
@@ -70,6 +70,4 @@ struct Doctor {
 		if (name != name) return name < b.name;
 		else return username < b.username;
 	}
-
-
 };

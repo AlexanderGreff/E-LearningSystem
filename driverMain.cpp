@@ -10,7 +10,7 @@
 #include <iomanip>
 #include <chrono>
 #include <thread>
-#include <conio.h>
+// #include <conio.h>
 #include <map>
 #include <cstdlib>
 #include <assert.h>
@@ -62,7 +62,7 @@ int main() {
 
 	mainMenu();
 
-	system("PAUSE");
+	system("sleep 1");
 
 }
 

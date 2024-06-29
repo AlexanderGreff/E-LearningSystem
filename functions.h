@@ -79,3 +79,5 @@ void viewAss(shared_ptr<Assignment>& as, shared_ptr <Student>& s, shared_ptr<Cou
 
 void loadC(shared_ptr<Student>& x);
 void gradeList(shared_ptr<Student>& s);
+
+char _getch();

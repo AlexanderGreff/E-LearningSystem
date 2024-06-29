@@ -23,11 +23,22 @@ vector <string> studentsID = {
 
 
 // mf
+void clearScreen() 
+{
+	system("clear");	
+}
+
+char _getch()
+{
+    char ch = 'a';
+	std::cin >> ch;
+    return ch;
+}
 
 void mainMenu() {
 	char choice;
 
-	system("CLS");
+	clearScreen();
 
 	cout << "Main Screen" << endl; L();
 	cout << "1- Login" << endl;
@@ -45,7 +56,7 @@ void mainMenu() {
 	//Input validation
 
 	if (choice == '3') {
-		system("CLS");
+		clearScreen();
 		cout << "Thanks for yousing our program" << endl;
 		delay(1500);
 
@@ -70,7 +81,7 @@ void mainMenu() {
 
 void login(vector<string>& s, vector<string>& d, int trials, string message) {
 
-	system("CLS");
+	clearScreen();
 	cout << "Login" << endl; L();
 
 	cout << message;
@@ -171,7 +182,7 @@ void login(vector<string>& s, vector<string>& d, int trials, string message) {
 }
 
 void signUp() {
-	system("CLS");
+	clearScreen();
 
 	cout << "Signup" << endl; L();
 
@@ -185,7 +196,7 @@ void signUp() {
 	if (stroke == 'b' or stroke == 'B') mainMenu();
 
 	if (stroke == '1') {
-		system("CLS");
+		clearScreen();
 		cout << "Sign up for a doctor account" << endl;
 		L();
 		string name, username, password;
@@ -215,7 +226,7 @@ void signUp() {
 	}
 
 	else if (stroke == '2') {
-		system("CLS");
+		clearScreen();
 		cout << "Sign up for a student account" << endl;
 		L();
 
@@ -292,7 +303,7 @@ void L(int t) {
 //sf
 
 void studentMenu(shared_ptr<Student>&s) {
-	system("CLS");
+	clearScreen();
 
 	cout << "Press a key corresponding to your choice: " << endl;
 	L();
@@ -319,7 +330,7 @@ void studentMenu(shared_ptr<Student>&s) {
 }
 
 void coursesList(shared_ptr<Student>&S) {
-	system("CLS");
+	clearScreen();
 	char stroke;
 
 
@@ -379,7 +390,7 @@ void registerCourse(shared_ptr<Student>&s) {
 		if (flag) difference.emplace_back(x);
 	}
 
-	system("CLS");
+	clearScreen();
 
 	if (difference.size() == 0) {
 		cout << "There are no courses for you to register in at the moment." << endl;
@@ -461,7 +472,7 @@ void registerCourse(shared_ptr<Student>&s) {
 
 void stViewCourse(shared_ptr<Course>& c, shared_ptr<Student>&S) {
 
-	system("CLS");
+	clearScreen();
 	cout << "Course Info" << endl;
 	L();
 
@@ -478,7 +489,7 @@ void stViewCourse(shared_ptr<Course>& c, shared_ptr<Student>&S) {
 	if (stroke == 'b') coursesList(S);
 	else {
 
-		system("CLS");
+		clearScreen();
 
 
 		viewAss(c->assignments[static_cast <int> (stroke) - 49], S, c);
@@ -517,7 +528,7 @@ void notAutoAdd(shared_ptr<Course>& C) {
 void doctorMenu(shared_ptr<Doctor>& d) {
 
 
-	system("CLS");
+	clearScreen();
 	cout << "Press a key corresponding to your choice: " << endl;
 	L();
 	cout << "1- Courses list" << endl
@@ -535,7 +546,7 @@ void doctorMenu(shared_ptr<Doctor>& d) {
 
 void coursesList(shared_ptr<Doctor>& D) {
 
-	system("CLS");
+	clearScreen();
 
 	char stroke;
 
@@ -565,7 +576,7 @@ void coursesList(shared_ptr<Doctor>& D) {
 
 void drViewCourse(shared_ptr<Course>& c, shared_ptr<Doctor>& D) {
 
-	system("CLS");
+	clearScreen();
 	cout << c->name << " -> Course Info" << endl;
 	L();
 
@@ -582,10 +593,10 @@ void drViewCourse(shared_ptr<Course>& c, shared_ptr<Doctor>& D) {
 	char stroke = _getch();
 
 	if (stroke == 'D' or stroke == 'd') {
-		//system("CLS");
+		//clearScreen();
 		cout << endl;
 
-		system("CLS");
+		clearScreen();
 		cout << "Please enter the course description for " << c->name << ": \n";
 		L();
 		c->setDesc();
@@ -599,13 +610,13 @@ void drViewCourse(shared_ptr<Course>& c, shared_ptr<Doctor>& D) {
 		drViewCourse(c, D);
 	}
 	if (stroke == '2') {
-		system("CLS");
+		clearScreen();
 		addAssignmentToCourse(D, c);
 		delay(1000);
 		drViewCourse(c, D);
 	}
 	if (stroke == '3') {
-		system("CLS");
+		clearScreen();
 		courseGrades(c);
 		drViewCourse(c, D);
 
@@ -617,7 +628,7 @@ void drViewCourse(shared_ptr<Course>& c, shared_ptr<Doctor>& D) {
 }
 
 void create(shared_ptr<Doctor>& d) {
-	system("CLS");
+	clearScreen();
 	string n, c; int sem;
 	int isPre = 0;
 	cout << "Create a course" << endl;
@@ -712,7 +723,7 @@ void listAss(shared_ptr<Student>&s, shared_ptr<Course>& c) {
 }
 
 void listAss(shared_ptr<Doctor>& d, shared_ptr<Course>& c) {
-	system("CLS");
+	clearScreen();
 	cout << "List of Assignments" << endl;
 	L();
 	if (c->assignments.size() == 0) { cout << "This course has no assignments!" << endl; delay(2000); return; }
@@ -744,7 +755,7 @@ void listAss(shared_ptr<Doctor>& d, shared_ptr<Course>& c) {
 	cout << "Select an assignment to view or press 'b' to go back: ";
 	char stroke = _getch();
 	if (stroke == 'b') return;
-	system("CLS");
+	clearScreen();
 	viewAss(c->assignments[(int)stroke - 49], d);
 
 
@@ -763,7 +774,7 @@ void addToDr(shared_ptr<Doctor>& d) {
 }
 void edit_pre(shared_ptr<Course>& cc) {
 
-	system("CLS");
+	clearScreen();
 	cout << "Add prerequisites for " << cc->name << endl;
 	L();
 
@@ -822,7 +833,7 @@ void edit_pre(shared_ptr<Course>& cc) {
 	L();
 	cout << "Prerequisite added successfully" << endl; delay(1500);
 
-	system("CLS");
+	clearScreen();
 
 	cout << "list of prerequisites for " << cc->name << endl;
 	L();
@@ -848,7 +859,7 @@ void edit_pre(shared_ptr<Course>& cc) {
 
 }
 void viewSub(shared_ptr <pair<shared_ptr <Student> const, shared_ptr<Submission> > > temp, shared_ptr<Assignment>& as, shared_ptr<Doctor>& d) {
-	system("CLS");
+	clearScreen();
 	cout << "View submission" << endl;
 	L();
 	cout << "Submission name: " << temp->second->name << endl
@@ -940,7 +951,7 @@ void subList(shared_ptr<Assignment>& as, shared_ptr<Doctor>& d) {
 
 }
 void viewAss(shared_ptr<Assignment>& as, shared_ptr<Doctor>& d) {
-	system("CLS");
+	clearScreen();
 	cout << "View Assignment" << endl;
 	L();
 	cout << "Assignment name: " << as->name << endl;
@@ -998,7 +1009,7 @@ void viewAss(shared_ptr<Assignment>& as, shared_ptr <Student>& s, shared_ptr<Cou
 
 		if (stroke == 'b') stViewCourse(c, s);
 		else if (stroke == 's' or stroke == 'S') {
-			system("CLS");
+			clearScreen();
 
 			makeSubmission(s, as);
 			L();
@@ -1047,7 +1058,7 @@ void viewComments(shared_ptr <Submission>& sub) {
 
 }
 void viewSub(shared_ptr <Submission>& sub, shared_ptr<Student>&s, shared_ptr<Course>& c) {
-	system("CLS");
+	clearScreen();
 	cout << "Submission for " << sub->asi->name;
 	L();
 	cout << "Submission name: " << sub->name << endl
@@ -1135,7 +1146,7 @@ void courseGrades(shared_ptr<Course>& c) {
 }
 
 void gradeList(shared_ptr<Student>&s) {
-	system("CLS");
+	clearScreen();
 	cout << "Grade List" << endl;
 	L();
 	double mark;
