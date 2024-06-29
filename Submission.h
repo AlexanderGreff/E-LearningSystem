@@ -1,28 +1,10 @@
 #pragma once
 #include <iostream>
-#include <algorithm>
-#include <vector>
-#include <set>
 #include <string>
-#include <cstring>
-#include <queue>
-#include <stack>
-#include <fstream>
-#include <iomanip>
-#include <chrono>
-#include <thread>
-// #include <conio.h>
-#include <map>
-#include <cstdlib>
-#include <assert.h>
+#include <memory>
+#include <deque>
 using namespace std;
-using namespace this_thread;
-using namespace std::chrono;
-
-
-struct Assignment;
-
-
+#include "Assignment.h"
 
 struct Submission {
 	string name;
