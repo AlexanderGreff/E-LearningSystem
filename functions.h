@@ -7,20 +7,6 @@
 //============================= FUNCTIONS PROTOTYPES =========================================
 //Flags for the login proccess
 
-// extern std::deque <std::shared_ptr<Student> > STUDENTS;
-
-// extern std::deque <std::shared_ptr<Course> > COURSES;
-// extern std::deque <std::shared_ptr<Doctor> > DOCTORS;
-extern int wait;
-extern int status;
-extern int soz ;
-
-
-extern std::vector <std::string> doctors;
-extern std::vector <std::string> students;
-extern std::vector <std::string> studentsID;
-
-
 //mp
 //Main Menu function
 void mainMenu();

@@ -10,18 +10,6 @@ int status = -1;
 int soz = 0;
 
 
-std::vector <std::string> doctors = {
-	"Mohamed", "m", "Ahmed","ok"
-};
-
-std::vector <std::string> students = {
-	"Mido", "m", "Ahmedo","ok"
-};
-
-std::vector <std::string> studentsID = {
-	"A19EC4015", "A19EC4003"
-};
-
 
 
 // mf

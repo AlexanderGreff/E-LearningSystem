@@ -25,8 +25,20 @@ students_(
 		std::make_shared<Doctor>(Doctor("Mohamed Alganzory", "Mohamed")),
 		std::make_shared<Doctor>(Doctor("Ahmed Yousif", "Ahmed"))
 	}
-		)
-
+		),
+		doctorList_(
+			{
+				"Mohamed", "m", "Ahmed","ok"
+			}
+		),
+		studentList_
+		({
+			"Mido", "m", "Ahmedo","ok"
+		}),
+		studentIDList_
+		({
+			"A19EC4015", "A19EC4003"
+		})
 {
 }
 

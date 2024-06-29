@@ -9,7 +9,6 @@
 struct Doctor;
 
 
-extern std::deque <std::shared_ptr<Student> > STUDENTS;
 
 
 
